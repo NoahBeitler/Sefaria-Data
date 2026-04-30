@@ -34,7 +34,20 @@ def change_vilna_pages_in_maechet(masechet, off, start, end):
         filename = f'vilna-romm/{masechet}_{page}_thumbnail.jpg'
         rename(filename, reg, off)
 
+def change_bomberg_pages_in_maechet(masechet, off, start, end):
+    dappim = range(start, end + 1) if off < 0 else range(end, start - 1, -1)
+    bomberg = 'bomberg'
+    masechet = f'masekhet_{masechet}'
+    reg = '\d{4}'
+    for daf in dappim:
+        page = str(daf + 3).zfill(4)
+        filename = f'{bomberg}/{masechet}_{page}.jpg'
+        rename(filename, reg, off, False)
+        filename = f'{bomberg}/{masechet}_{page}_thumbnail.jpg'
+        rename(filename, reg, off, False)
+
 
 if __name__ == '__main__':
     # example
     # change_vilna_pages_in_maechet('Tamid', 47, 3, 66)
+    change_bomberg_pages_in_maechet('20', -2, 160, 213)
